@@ -1,10 +1,13 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import './GameImage.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import image from '../../assets/wimmelbild.jpg';
 
 function GameImage() {
-  const [coordinateX, setCoordinateX] = useState(0);
-  const [coordinateY, setCoordinateY] = useState(0);
+  const highlightBox = useRef();
+  const [coordinateX, setCoordinateX] = useState();
+  const [coordinateY, setCoordinateY] = useState();
 
   const getCoordinates = (e) => {
     setCoordinateX(e.nativeEvent.offsetX);
@@ -12,7 +15,9 @@ function GameImage() {
   };
 
   useEffect(() => {
-    console.log(`"X: " ${coordinateX} "//" "Y: " ${coordinateY}`);
+    if (coordinateX && coordinateY) {
+      highlightBox.current.style.display = 'block';
+    }
   }, [coordinateX]);
 
   return (
@@ -28,6 +33,11 @@ function GameImage() {
         role="grid"
         tabIndex={0}>
         <img src={image} alt="a wimmelbild" />
+        <div
+          className="highlightBox"
+          ref={highlightBox}
+          style={{ top: `calc(${coordinateY}px + 10vh - 25px)`, left: `${coordinateX - 25}px` }}
+        />
       </div>
     </div>
   );
