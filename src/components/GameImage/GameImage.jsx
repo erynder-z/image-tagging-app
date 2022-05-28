@@ -35,10 +35,10 @@ function GameImage() {
 
   const checkTarget = (targetX1, targetY1, targetX2, targetY2, proposedX, proposedY) => {
     if (
-      proposedX > targetX1 &&
-      proposedX < targetX2 &&
-      proposedY > targetY1 &&
-      proposedY < targetY2
+      proposedX >= targetX1 &&
+      proposedX <= targetX2 &&
+      proposedY >= targetY1 &&
+      proposedY <= targetY2
     ) {
       console.log('true');
     } else {
