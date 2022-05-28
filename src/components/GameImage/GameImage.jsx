@@ -5,20 +5,47 @@ import React, { useEffect, useState, useRef } from 'react';
 import image from '../../assets/wimmelbild.jpg';
 
 function GameImage() {
-  const highlightBox = useRef();
-  const [coordinateX, setCoordinateX] = useState();
-  const [coordinateY, setCoordinateY] = useState();
+  const highlighter = useRef();
+  const [clickX, setClickX] = useState();
+  const [clickY, setClickY] = useState();
+  const [targetX, setTargetX] = useState();
+  const [targetY, setTargetY] = useState();
+
+  const target = [32, 48, 36, 51];
 
   const getCoordinates = (e) => {
-    setCoordinateX(e.nativeEvent.offsetX);
-    setCoordinateY(e.nativeEvent.offsetY);
+    const getClickX = e.nativeEvent.offsetX;
+    const getClickY = e.nativeEvent.offsetY;
+    const getTargetX = Math.round((e.nativeEvent.offsetX / e.nativeEvent.target.offsetWidth) * 100);
+    const getTargetY = Math.round(
+      (e.nativeEvent.offsetY / e.nativeEvent.target.offsetHeight) * 100
+    );
+
+    setClickX(getClickX);
+    setClickY(getClickY);
+    setTargetX(getTargetX);
+    setTargetY(getTargetY);
+  };
+
+  const checkTarget = (targetX1, targetY1, targetX2, targetY2, proposedX, proposedY) => {
+    if (
+      proposedX > targetX1 &&
+      proposedX < targetX2 &&
+      proposedY > targetY1 &&
+      proposedY < targetY2
+    ) {
+      console.log('true');
+    } else {
+      console.log('false');
+    }
   };
 
   useEffect(() => {
-    if (coordinateX && coordinateY) {
-      highlightBox.current.style.display = 'block';
+    if (clickX && clickY) {
+      highlighter.current.style.display = 'block';
+      checkTarget(target[0], target[1], target[2], target[3], targetX, targetY);
     }
-  }, [coordinateX]);
+  }, [clickX]);
 
   return (
     <div className="game">
@@ -34,9 +61,12 @@ function GameImage() {
         tabIndex={0}>
         <img src={image} alt="a wimmelbild" />
         <div
-          className="highlightBox"
-          ref={highlightBox}
-          style={{ top: `calc(${coordinateY}px + 10vh - 25px)`, left: `${coordinateX - 25}px` }}
+          className="highlighter"
+          ref={highlighter}
+          style={{
+            top: `calc(${clickY}px + 10vh - 20px)`,
+            left: `${clickX - 20}px`
+          }}
         />
       </div>
     </div>
