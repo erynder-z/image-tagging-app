@@ -3,6 +3,7 @@
 import './GameImage.css';
 import React, { useEffect, useState, useRef } from 'react';
 import image from '../../assets/wimmelbild.jpg';
+import Popupmenu from '../Popupmenu/Popupmenu';
 
 function GameImage() {
   const highlighter = useRef();
@@ -10,6 +11,7 @@ function GameImage() {
   const [clickY, setClickY] = useState();
   const [targetX, setTargetX] = useState();
   const [targetY, setTargetY] = useState();
+  const [showPopup, setShowPopup] = useState(false);
 
   const target = [32, 48, 36, 51];
 
@@ -25,6 +27,10 @@ function GameImage() {
     setClickY(getClickY);
     setTargetX(getTargetX);
     setTargetY(getTargetY);
+  };
+
+  const handleClick = () => {
+    setShowPopup(!showPopup);
   };
 
   const checkTarget = (targetX1, targetY1, targetX2, targetY2, proposedX, proposedY) => {
@@ -53,6 +59,7 @@ function GameImage() {
         className="image-container"
         onClick={(e) => {
           getCoordinates(e);
+          handleClick();
         }}
         onKeyDown={(e) => {
           getCoordinates(e);
@@ -69,6 +76,7 @@ function GameImage() {
           }}
         />
       </div>
+      {showPopup && <Popupmenu position={[clickX, clickY]} />}
     </div>
   );
 }
