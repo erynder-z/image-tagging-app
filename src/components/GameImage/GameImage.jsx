@@ -13,7 +13,11 @@ function GameImage() {
   const [targetY, setTargetY] = useState();
   const [showPopup, setShowPopup] = useState(false);
 
-  const target = [32, 48, 36, 51];
+  const targets = [
+    { name: 'target1', coords: [10, 39, 13, 42] },
+    { name: 'target2', coords: [81, 43, 84, 45] },
+    { name: 'target3', coords: [32, 48, 36, 51] }
+  ];
 
   const getCoordinates = (e) => {
     const getClickX = e.nativeEvent.offsetX;
@@ -33,7 +37,14 @@ function GameImage() {
     setShowPopup(!showPopup);
   };
 
-  const checkTarget = (targetX1, targetY1, targetX2, targetY2, proposedX, proposedY) => {
+  const checkTarget = (proposedTarget) => {
+    const target = targets.find((item) => item.name === proposedTarget);
+    const targetX1 = target.coords[0];
+    const targetY1 = target.coords[1];
+    const targetX2 = target.coords[2];
+    const targetY2 = target.coords[3];
+    const proposedX = targetX;
+    const proposedY = targetY;
     if (
       proposedX >= targetX1 &&
       proposedX <= targetX2 &&
@@ -49,7 +60,7 @@ function GameImage() {
   useEffect(() => {
     if (clickX && clickY) {
       highlighter.current.style.display = 'block';
-      checkTarget(target[0], target[1], target[2], target[3], targetX, targetY);
+      /*     checkTarget(target[0], target[1], target[2], target[3], targetX, targetY); */
     }
   }, [clickX]);
 
@@ -76,7 +87,7 @@ function GameImage() {
           }}
         />
       </div>
-      {showPopup && <Popupmenu position={[clickX, clickY]} />}
+      {showPopup && <Popupmenu position={[clickX, clickY]} checkTarget={checkTarget} />}
     </div>
   );
 }
