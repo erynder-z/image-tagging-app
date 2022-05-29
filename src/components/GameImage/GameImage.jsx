@@ -9,6 +9,20 @@ import Popupmenu from '../Popupmenu/Popupmenu';
 
 function GameImage({ database }) {
   const highlighter = useRef();
+  const [targets, setTargets] = useState([
+    {
+      name: 'target1',
+      found: false
+    },
+    {
+      name: 'target2',
+      found: false
+    },
+    {
+      name: 'target3',
+      found: false
+    }
+  ]);
   const [clickX, setClickX] = useState();
   const [clickY, setClickY] = useState();
   const [relativeX, setRelativeX] = useState();
@@ -26,6 +40,20 @@ function GameImage({ database }) {
     setShowPopup(!showPopup);
   };
 
+  const markFound = (target) => {
+    setTargets(
+      [...targets].map((object) => {
+        if (object.name === target.name) {
+          return {
+            ...object,
+            found: true
+          };
+        }
+        return object;
+      })
+    );
+  };
+
   const checkTarget = async (proposedTarget) => {
     const getData = async () => {
       const docRef = doc(database, 'targets', proposedTarget);
@@ -38,12 +66,13 @@ function GameImage({ database }) {
       return null;
     };
 
-    const target = await getData();
+    const target = targets.find((item) => item.name === proposedTarget);
+    const targetCoords = await getData();
 
-    const targetX1 = target[0];
-    const targetY1 = target[1];
-    const targetX2 = target[2];
-    const targetY2 = target[3];
+    const targetX1 = targetCoords[0];
+    const targetY1 = targetCoords[1];
+    const targetX2 = targetCoords[2];
+    const targetY2 = targetCoords[3];
 
     if (
       relativeX >= targetX1 &&
@@ -51,7 +80,8 @@ function GameImage({ database }) {
       relativeY >= targetY1 &&
       relativeY <= targetY2
     ) {
-      console.log('true');
+      console.log(`found ${target.name}`);
+      markFound(target);
     } else {
       console.log('false');
     }
