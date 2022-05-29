@@ -2,10 +2,12 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import './GameImage.css';
 import React, { useEffect, useState, useRef } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import PropTypes from 'prop-types';
 import image from '../../assets/wimmelbild.jpg';
 import Popupmenu from '../Popupmenu/Popupmenu';
 
-function GameImage() {
+function GameImage({ database }) {
   const highlighter = useRef();
   const [clickX, setClickX] = useState();
   const [clickY, setClickY] = useState();
@@ -13,11 +15,11 @@ function GameImage() {
   const [targetY, setTargetY] = useState();
   const [showPopup, setShowPopup] = useState(false);
 
-  const targets = [
+  /*   const targets = [
     { name: 'target1', coords: [10, 39, 13, 42] },
     { name: 'target2', coords: [81, 43, 84, 45] },
     { name: 'target3', coords: [32, 48, 36, 51] }
-  ];
+  ]; */
 
   const getCoordinates = (e) => {
     const getClickX = e.nativeEvent.offsetX;
@@ -37,12 +39,25 @@ function GameImage() {
     setShowPopup(!showPopup);
   };
 
-  const checkTarget = (proposedTarget) => {
-    const target = targets.find((item) => item.name === proposedTarget);
-    const targetX1 = target.coords[0];
-    const targetY1 = target.coords[1];
-    const targetX2 = target.coords[2];
-    const targetY2 = target.coords[3];
+  const checkTarget = async (proposedTarget) => {
+    const getData = async () => {
+      const docRef = doc(database, 'targets', proposedTarget);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        /*        console.log('Document data:', docSnap.data()); */
+        return docSnap.data().coords;
+      }
+      console.log('No such document!');
+      return null;
+    };
+
+    const target = await getData();
+
+    const targetX1 = target[0];
+    const targetY1 = target[1];
+    const targetX2 = target[2];
+    const targetY2 = target[3];
     const proposedX = targetX;
     const proposedY = targetY;
     if (
@@ -60,7 +75,6 @@ function GameImage() {
   useEffect(() => {
     if (clickX && clickY) {
       highlighter.current.style.display = 'block';
-      /*     checkTarget(target[0], target[1], target[2], target[3], targetX, targetY); */
     }
   }, [clickX]);
 
@@ -93,3 +107,8 @@ function GameImage() {
 }
 
 export default GameImage;
+
+GameImage.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  database: PropTypes.object.isRequired
+};

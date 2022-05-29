@@ -51,7 +51,7 @@ function App() {
             />
           }
         />
-        <Route path="/gameimage" element={<GameImage user={user} />} />
+        <Route path="/gameimage" element={<GameImage database={database} user={user} />} />
         {/*   <Route path="/something" element={<Something />} /> */}
       </Routes>
     </div>
