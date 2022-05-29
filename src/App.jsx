@@ -88,7 +88,7 @@ function App() {
 
   return (
     <div className="App">
-      <Nav />
+      <Nav targets={targets} />
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route
