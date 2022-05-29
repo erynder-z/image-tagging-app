@@ -11,28 +11,15 @@ function GameImage({ database }) {
   const highlighter = useRef();
   const [clickX, setClickX] = useState();
   const [clickY, setClickY] = useState();
-  const [targetX, setTargetX] = useState();
-  const [targetY, setTargetY] = useState();
+  const [relativeX, setRelativeX] = useState();
+  const [relativeY, setRelativeY] = useState();
   const [showPopup, setShowPopup] = useState(false);
 
-  /*   const targets = [
-    { name: 'target1', coords: [10, 39, 13, 42] },
-    { name: 'target2', coords: [81, 43, 84, 45] },
-    { name: 'target3', coords: [32, 48, 36, 51] }
-  ]; */
-
-  const getCoordinates = (e) => {
-    const getClickX = e.nativeEvent.offsetX;
-    const getClickY = e.nativeEvent.offsetY;
-    const getTargetX = Math.round((e.nativeEvent.offsetX / e.nativeEvent.target.offsetWidth) * 100);
-    const getTargetY = Math.round(
-      (e.nativeEvent.offsetY / e.nativeEvent.target.offsetHeight) * 100
-    );
-
-    setClickX(getClickX);
-    setClickY(getClickY);
-    setTargetX(getTargetX);
-    setTargetY(getTargetY);
+  const getClickCoordinates = (e) => {
+    setClickX(e.nativeEvent.offsetX);
+    setClickY(e.nativeEvent.offsetY);
+    setRelativeX(Math.round((e.nativeEvent.offsetX / e.nativeEvent.target.offsetWidth) * 100));
+    setRelativeY(Math.round((e.nativeEvent.offsetY / e.nativeEvent.target.offsetHeight) * 100));
   };
 
   const handleClick = () => {
@@ -45,7 +32,6 @@ function GameImage({ database }) {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        /*        console.log('Document data:', docSnap.data()); */
         return docSnap.data().coords;
       }
       console.log('No such document!');
@@ -58,13 +44,12 @@ function GameImage({ database }) {
     const targetY1 = target[1];
     const targetX2 = target[2];
     const targetY2 = target[3];
-    const proposedX = targetX;
-    const proposedY = targetY;
+
     if (
-      proposedX >= targetX1 &&
-      proposedX <= targetX2 &&
-      proposedY >= targetY1 &&
-      proposedY <= targetY2
+      relativeX >= targetX1 &&
+      relativeX <= targetX2 &&
+      relativeY >= targetY1 &&
+      relativeY <= targetY2
     ) {
       console.log('true');
     } else {
@@ -83,11 +68,8 @@ function GameImage({ database }) {
       <div
         className="image-container"
         onClick={(e) => {
-          getCoordinates(e);
+          getClickCoordinates(e);
           handleClick();
-        }}
-        onKeyDown={(e) => {
-          getCoordinates(e);
         }}
         role="grid"
         tabIndex={0}>
