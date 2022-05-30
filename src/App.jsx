@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import Nav from './components/Nav/Nav';
@@ -7,13 +7,16 @@ import StartScreen from './components/StartScreen/StartScreen';
 import Welcome from './components/Welcome/Welcome';
 import GameImage from './components/GameImage/GameImage';
 import database from './components/Firebase/Firebase';
+import Gameover from './components/Gameover/Gameover';
 
 function App() {
   const [user, setUser] = useState({
-    name: 'Jack',
-    gamStartTime: 1,
-    id: 'someID'
+    /*  name: 'Jack',
+    gameStart: 1,
+    gameFinish: 5,
+    id: 'someID' */
   });
+  const [gameOver, setGameOver] = useState(false);
   const [relativeCoordinates, setRelativeCoordinates] = useState({ x: 0, y: 0 });
   const [targets, setTargets] = useState([
     {
@@ -43,6 +46,8 @@ function App() {
       })
     );
   };
+
+  const gameOverCheck = () => targets.every((object) => object.found === true);
 
   const checkTarget = async (proposedTarget) => {
     const getData = async () => {
@@ -77,13 +82,18 @@ function App() {
     }
   };
 
-  const saveName = (formValue) => {
+  const saveName = (/* formValue */) => {
     setUser({
-      name: formValue,
-      gamStartTime: Date.now(),
+      name: 'Jack',
+      gameStart: Date.now(),
+      gameFinish: 0,
       id: 'someID'
     });
   };
+
+  useEffect(() => {
+    setGameOver(gameOverCheck());
+  }, [targets]);
 
   return (
     <div className="App">
@@ -112,6 +122,7 @@ function App() {
             />
           }
         />
+        {gameOver && <Gameover />}
         {/*   <Route path="/something" element={<Something />} /> */}
       </Routes>
     </div>
