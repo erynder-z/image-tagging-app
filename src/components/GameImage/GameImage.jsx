@@ -5,9 +5,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import image from '../../assets/wimmelbild.jpg';
 import Popupmenu from '../Popupmenu/Popupmenu';
-import Highlighter from '../Highlighter/Highlighter';
 
-function GameImage({ setRelativeCoordinates, checkTarget }) {
+function GameImage({ setRelativeCoordinates, checkTarget, targets }) {
   const [clickCoordinates, setClickCoordinates] = useState({ x: 0, y: 0 });
   const [showPopup, setShowPopup] = useState(false);
 
@@ -35,9 +34,12 @@ function GameImage({ setRelativeCoordinates, checkTarget }) {
         tabIndex={0}>
         <img src={image} alt="a wimmelbild" />
       </div>
-      <Highlighter />
       {showPopup && (
-        <Popupmenu position={[clickCoordinates.x, clickCoordinates.y]} checkTarget={checkTarget} />
+        <Popupmenu
+          position={[clickCoordinates.x, clickCoordinates.y]}
+          checkTarget={checkTarget}
+          targets={targets}
+        />
       )}
     </div>
   );
@@ -47,5 +49,8 @@ export default GameImage;
 
 GameImage.propTypes = {
   setRelativeCoordinates: PropTypes.func.isRequired,
-  checkTarget: PropTypes.func.isRequired
+  checkTarget: PropTypes.func.isRequired,
+  targets: PropTypes.arrayOf(
+    PropTypes.shape(PropTypes.string.isRequired, PropTypes.bool.isRequired)
+  ).isRequired
 };

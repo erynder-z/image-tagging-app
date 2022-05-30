@@ -106,6 +106,7 @@ function App() {
           element={
             <GameImage
               user={user}
+              targets={targets}
               setRelativeCoordinates={setRelativeCoordinates}
               checkTarget={checkTarget}
             />

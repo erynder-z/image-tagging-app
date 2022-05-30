@@ -7,7 +7,7 @@ import image1 from '../../assets/target1.png';
 import image2 from '../../assets/target2.png';
 import image3 from '../../assets/target3.png';
 
-function Popupmenu({ position, checkTarget }) {
+function Popupmenu({ position, checkTarget, targets }) {
   const highlighter = useRef();
   const posX = position[0];
   const posY = position[1];
@@ -18,43 +18,55 @@ function Popupmenu({ position, checkTarget }) {
         className="highlighter"
         ref={highlighter}
         style={{
-          top: `calc(${posY}px + 10vh - 20px)`,
-          left: `${posX - 20}px`
+          top: `calc(${posY}px + 10vh - 25px)`,
+          left: `${posX - 25}px`
         }}
       />
       <div
         className="popup-menu"
         style={{
           display: 'flex',
-          top: `${posY + 40}px`,
-          left: `${posX + 25}px `
+          top: `${posY + 65}px`,
+          left: `${posX + 50}px `
         }}>
         <ul>
-          <li>
+          <li className={`${targets[0].found ? 'popup-found' : null}`}>
             <img
               src={image1}
               alt="target1"
-              onClick={() => {
-                checkTarget('target1');
-              }}
+              onClick={
+                !targets[0].found
+                  ? () => {
+                      checkTarget('target1');
+                    }
+                  : null
+              }
             />
           </li>
-          <li>
+          <li className={`${targets[1].found ? 'popup-found' : null}`}>
             <img
               src={image2}
               alt="target2"
-              onClick={() => {
-                checkTarget('target2');
-              }}
+              onClick={
+                !targets[1].found
+                  ? () => {
+                      checkTarget('target2');
+                    }
+                  : null
+              }
             />
           </li>
-          <li>
+          <li className={`${targets[2].found ? 'popup-found' : null}`}>
             <img
               src={image3}
               alt="target3"
-              onClick={() => {
-                checkTarget('target3');
-              }}
+              onClick={
+                !targets[2].found
+                  ? () => {
+                      checkTarget('target3');
+                    }
+                  : null
+              }
             />
           </li>
         </ul>
@@ -67,5 +79,8 @@ export default Popupmenu;
 
 Popupmenu.propTypes = {
   position: PropTypes.arrayOf(PropTypes.number).isRequired,
-  checkTarget: PropTypes.func.isRequired
+  checkTarget: PropTypes.func.isRequired,
+  targets: PropTypes.arrayOf(
+    PropTypes.shape(PropTypes.string.isRequired, PropTypes.bool.isRequired)
+  ).isRequired
 };
