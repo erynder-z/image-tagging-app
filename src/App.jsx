@@ -14,8 +14,7 @@ function App() {
     gamStartTime: 1,
     id: 'someID'
   });
-  const [relativeX, setRelativeX] = useState();
-  const [relativeY, setRelativeY] = useState();
+  const [relativeCoordinates, setRelativeCoordinates] = useState({ x: 0, y: 0 });
   const [targets, setTargets] = useState([
     {
       name: 'target1',
@@ -66,10 +65,10 @@ function App() {
     const targetY2 = targetCoords[3];
 
     if (
-      relativeX >= targetX1 &&
-      relativeX <= targetX2 &&
-      relativeY >= targetY1 &&
-      relativeY <= targetY2
+      relativeCoordinates.x >= targetX1 &&
+      relativeCoordinates.x <= targetX2 &&
+      relativeCoordinates.y >= targetY1 &&
+      relativeCoordinates.y <= targetY2
     ) {
       console.log(`found ${target.name}`);
       markFound(target);
@@ -107,8 +106,7 @@ function App() {
           element={
             <GameImage
               user={user}
-              setRelativeX={setRelativeX}
-              setRelativeY={setRelativeY}
+              setRelativeCoordinates={setRelativeCoordinates}
               checkTarget={checkTarget}
             />
           }

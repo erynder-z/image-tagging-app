@@ -5,17 +5,18 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import image from '../../assets/wimmelbild.jpg';
 import Popupmenu from '../Popupmenu/Popupmenu';
+import Highlighter from '../Highlighter/Highlighter';
 
-function GameImage({ setRelativeX, setRelativeY, checkTarget }) {
-  const [clickX, setClickX] = useState();
-  const [clickY, setClickY] = useState();
+function GameImage({ setRelativeCoordinates, checkTarget }) {
+  const [clickCoordinates, setClickCoordinates] = useState({ x: 0, y: 0 });
   const [showPopup, setShowPopup] = useState(false);
 
   const getClickCoordinates = (e) => {
-    setClickX(e.nativeEvent.offsetX);
-    setClickY(e.nativeEvent.offsetY);
-    setRelativeX(Math.round((e.nativeEvent.offsetX / e.nativeEvent.target.offsetWidth) * 100));
-    setRelativeY(Math.round((e.nativeEvent.offsetY / e.nativeEvent.target.offsetHeight) * 100));
+    setClickCoordinates({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY });
+    setRelativeCoordinates({
+      x: Math.round((e.nativeEvent.offsetX / e.nativeEvent.target.offsetWidth) * 100),
+      y: Math.round((e.nativeEvent.offsetY / e.nativeEvent.target.offsetHeight) * 100)
+    });
   };
 
   const handleClick = () => {
@@ -34,7 +35,10 @@ function GameImage({ setRelativeX, setRelativeY, checkTarget }) {
         tabIndex={0}>
         <img src={image} alt="a wimmelbild" />
       </div>
-      {showPopup && <Popupmenu position={[clickX, clickY]} checkTarget={checkTarget} />}
+      <Highlighter />
+      {showPopup && (
+        <Popupmenu position={[clickCoordinates.x, clickCoordinates.y]} checkTarget={checkTarget} />
+      )}
     </div>
   );
 }
@@ -42,7 +46,6 @@ function GameImage({ setRelativeX, setRelativeY, checkTarget }) {
 export default GameImage;
 
 GameImage.propTypes = {
-  setRelativeX: PropTypes.func.isRequired,
-  setRelativeY: PropTypes.func.isRequired,
+  setRelativeCoordinates: PropTypes.func.isRequired,
   checkTarget: PropTypes.func.isRequired
 };
