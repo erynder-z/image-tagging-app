@@ -10,12 +10,7 @@ import database from './components/Firebase/Firebase';
 import Gameover from './components/Gameover/Gameover';
 
 function App() {
-  const [user, setUser] = useState({
-    /*  name: 'Jack',
-    gameStart: 1,
-    gameFinish: 5,
-    id: 'someID' */
-  });
+  const [user, setUser] = useState({});
   const [gameOver, setGameOver] = useState(false);
   const [relativeCoordinates, setRelativeCoordinates] = useState({ x: 0, y: 0 });
   const [targets, setTargets] = useState([
@@ -82,7 +77,7 @@ function App() {
     }
   };
 
-  const saveName = (/* formValue */) => {
+  const createUser = () => {
     setUser({
       name: 'Jack',
       gameStart: Date.now(),
@@ -100,17 +95,7 @@ function App() {
       <Nav targets={targets} />
       <Routes>
         <Route path="/" element={<Welcome />} />
-        <Route
-          path="/startgame"
-          element={
-            <StartScreen
-              user={user}
-              saveName={(formValue) => {
-                saveName(formValue);
-              }}
-            />
-          }
-        />
+        <Route path="/startgame" element={<StartScreen user={user} createUser={createUser} />} />
         <Route
           path="/gameimage"
           element={
