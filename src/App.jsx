@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import Nav from './components/Nav/Nav';
 import StartScreen from './components/StartScreen/StartScreen';
@@ -99,17 +99,21 @@ function App() {
         <Route
           path="/gameimage"
           element={
-            <GameImage
-              user={user}
-              targets={targets}
-              setRelativeCoordinates={setRelativeCoordinates}
-              checkTarget={checkTarget}
-            />
+            !user.id ? (
+              <Navigate replace to="/" />
+            ) : (
+              <GameImage
+                targets={targets}
+                setRelativeCoordinates={setRelativeCoordinates}
+                checkTarget={checkTarget}
+              />
+            )
           }
         />
-        {gameOver && <Gameover />}
+
         {/*   <Route path="/something" element={<Something />} /> */}
       </Routes>
+      {gameOver && <Gameover user={user} />}
     </div>
   );
 }
