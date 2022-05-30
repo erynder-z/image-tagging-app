@@ -1,14 +1,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import './GameImage.css';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import image from '../../assets/wimmelbild.jpg';
 import Popupmenu from '../Popupmenu/Popupmenu';
 
 function GameImage({ setRelativeX, setRelativeY, checkTarget }) {
-  const highlighter = useRef();
-
   const [clickX, setClickX] = useState();
   const [clickY, setClickY] = useState();
   const [showPopup, setShowPopup] = useState(false);
@@ -24,12 +22,6 @@ function GameImage({ setRelativeX, setRelativeY, checkTarget }) {
     setShowPopup(!showPopup);
   };
 
-  useEffect(() => {
-    if (clickX && clickY) {
-      highlighter.current.style.display = 'block';
-    }
-  }, [clickX]);
-
   return (
     <div className="game">
       <div
@@ -41,14 +33,6 @@ function GameImage({ setRelativeX, setRelativeY, checkTarget }) {
         role="grid"
         tabIndex={0}>
         <img src={image} alt="a wimmelbild" />
-        <div
-          className="highlighter"
-          ref={highlighter}
-          style={{
-            top: `calc(${clickY}px + 10vh - 20px)`,
-            left: `${clickX - 20}px`
-          }}
-        />
       </div>
       {showPopup && <Popupmenu position={[clickX, clickY]} checkTarget={checkTarget} />}
     </div>
