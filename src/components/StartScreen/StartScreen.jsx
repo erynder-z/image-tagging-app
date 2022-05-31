@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function StartScreen({ createUser }) {
+function StartScreen({ initializeGame }) {
   const navigate = useNavigate();
 
-  const passName = (e) => {
+  const toggleGameStart = (e) => {
     e.preventDefault();
-    createUser();
+    initializeGame();
     navigate('/gameimage');
   };
 
   return (
     <div className="start-screen">
       <h3>Something</h3>
-      <form action="input" onSubmit={passName}>
+      <form action="input" onSubmit={toggleGameStart}>
         {/*  <input
           type="text"
           placeholder="enter your name"
@@ -34,5 +34,5 @@ function StartScreen({ createUser }) {
 export default StartScreen;
 
 StartScreen.propTypes = {
-  createUser: PropTypes.func.isRequired
+  initializeGame: PropTypes.func.isRequired
 };
