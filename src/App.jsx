@@ -13,6 +13,7 @@ import Gameover from './components/Gameover/Gameover';
 function App() {
   const [user, setUser] = useState({});
   const [gameOver, setGameOver] = useState(false);
+  const [isGameActive, setIsGameActive] = useState(false);
   const [relativeCoordinates, setRelativeCoordinates] = useState({ x: 0, y: 0 });
   const [targets, setTargets] = useState([
     {
@@ -78,23 +79,31 @@ function App() {
     }
   };
 
-  const createUser = () => {
+  const initializeGame = () => {
     setUser({
+      name: '',
       gameStart: Date.now(),
+      gameFinish: '',
+      time: { minutes: '', seconds: '' },
       id: uniqid()
     });
+    setIsGameActive(true);
   };
 
   useEffect(() => {
     setGameOver(gameOverCheck());
   }, [targets]);
 
+  useEffect(() => {
+    setIsGameActive(false);
+  }, [gameOver]);
+
   return (
     <div className="App">
-      <Nav targets={targets} />
+      <Nav targets={targets} isGameActive={isGameActive} />
       <Routes>
         <Route path="/" element={<Welcome />} />
-        <Route path="/startgame" element={<StartScreen user={user} createUser={createUser} />} />
+        <Route path="/startgame" element={<StartScreen initializeGame={initializeGame} />} />
         <Route
           path="/gameimage"
           element={
