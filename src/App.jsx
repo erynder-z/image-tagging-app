@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
+import uniqid from 'uniqid';
 import Nav from './components/Nav/Nav';
 import StartScreen from './components/StartScreen/StartScreen';
 import Welcome from './components/Welcome/Welcome';
@@ -79,10 +80,8 @@ function App() {
 
   const createUser = () => {
     setUser({
-      name: 'Jack',
       gameStart: Date.now(),
-      gameFinish: 0,
-      id: 'someID'
+      id: uniqid()
     });
   };
 
