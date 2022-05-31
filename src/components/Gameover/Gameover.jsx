@@ -29,12 +29,22 @@ function Gameover({ user, resetGame }) {
     }));
   }, []);
 
+  const formattedMinutes = userGameover.time.minutes.toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  });
+
+  const formattedSeconds = userGameover.time.seconds.toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  });
+
   return (
     <div className="gameover-overlay">
       <div className="gameover-body">
         <h3>Something</h3>
         <h3>
-          you took: {userGameover.time.minutes}:{userGameover.time.seconds}
+          your time: {formattedMinutes}:{formattedSeconds}
         </h3>
         <form
           action="input"
