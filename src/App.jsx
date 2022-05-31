@@ -14,6 +14,7 @@ function App() {
   const [user, setUser] = useState({});
   const [gameOver, setGameOver] = useState(false);
   const [isGameActive, setIsGameActive] = useState(false);
+  const [mustResetTimer, setMustResetTimer] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [relativeCoordinates, setRelativeCoordinates] = useState({ x: 0, y: 0 });
   const [targets, setTargets] = useState([
@@ -96,6 +97,27 @@ function App() {
     setIsGameActive(true);
   };
 
+  const resetGame = () => {
+    setUser({});
+    setTargets([
+      {
+        name: 'target1',
+        found: false
+      },
+      {
+        name: 'target2',
+        found: false
+      },
+      {
+        name: 'target3',
+        found: false
+      }
+    ]);
+    setGameOver(false);
+    setIsGameActive(false);
+    setMustResetTimer(true);
+  };
+
   useEffect(() => {
     setGameOver(gameOverCheck());
   }, [targets]);
@@ -106,7 +128,7 @@ function App() {
 
   return (
     <div className="App">
-      <Nav targets={targets} isGameActive={isGameActive} />
+      <Nav targets={targets} isGameActive={isGameActive} mustResetTimer={mustResetTimer} />
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/startgame" element={<StartScreen initializeGame={initializeGame} />} />
@@ -129,7 +151,7 @@ function App() {
 
         {/*   <Route path="/something" element={<Something />} /> */}
       </Routes>
-      {gameOver && <Gameover user={user} />}
+      {gameOver && <Gameover user={user} resetGame={resetGame} />}
     </div>
   );
 }

@@ -2,8 +2,9 @@ import './Gameover.css';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { intervalToDuration } from 'date-fns';
+import { Link } from 'react-router-dom';
 
-function Gameover({ user }) {
+function Gameover({ user, resetGame }) {
   const [formValue, setFormValue] = useState('');
   const [userGameover, setUserGameover] = useState(user);
 
@@ -33,8 +34,7 @@ function Gameover({ user }) {
       <div className="gameover-body">
         <h3>Something</h3>
         <h3>
-          you took: {userGameover.time.minutes}:{userGameover.time.seconds}:
-          {userGameover.time.milliseconds}
+          you took: {userGameover.time.minutes}:{userGameover.time.seconds}
         </h3>
         <form
           action="input"
@@ -51,6 +51,13 @@ function Gameover({ user }) {
           />
 
           <button type="submit">Submit</button>
+          <Link
+            to="/"
+            onClick={() => {
+              resetGame();
+            }}>
+            Return to Main
+          </Link>
         </form>
       </div>
     </div>
@@ -69,5 +76,6 @@ Gameover.propTypes = {
       seconds: PropTypes.string.isRequired
     }),
     id: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  resetGame: PropTypes.func.isRequired
 };
