@@ -1,7 +1,7 @@
 import './Gameover.css';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { differenceInSeconds } from 'date-fns';
+import { intervalToDuration } from 'date-fns';
 
 function Gameover({ user }) {
   const [formValue, setFormValue] = useState('');
@@ -19,7 +19,8 @@ function Gameover({ user }) {
 
   useEffect(() => {
     const unixTimeEnd = Date.now();
-    const difference = differenceInSeconds(unixTimeEnd, userGameover.gameStart);
+    // returns date-fns Duration-object: https://date-fns.org/v2.28.0/docs/Duration
+    const difference = intervalToDuration({ start: userGameover.gameStart, end: unixTimeEnd });
     setUserGameover((prevState) => ({
       ...prevState,
       gameFinish: unixTimeEnd,
@@ -31,7 +32,10 @@ function Gameover({ user }) {
     <div className="gameover-overlay">
       <div className="gameover-body">
         <h3>Something</h3>
-        <h3>you took: {userGameover.time} Seconds</h3>
+        <h3>
+          you took: {userGameover.time.minutes}:{userGameover.time.seconds}:
+          {userGameover.time.milliseconds}
+        </h3>
         <form
           action="input"
           onSubmit={(e) => {
@@ -57,7 +61,13 @@ export default Gameover;
 
 Gameover.propTypes = {
   user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
     gameStart: PropTypes.number.isRequired,
+    gameFinish: PropTypes.string.isRequired,
+    time: PropTypes.shape({
+      minutes: PropTypes.string.isRequired,
+      seconds: PropTypes.string.isRequired
+    }),
     id: PropTypes.string.isRequired
   }).isRequired
 };
