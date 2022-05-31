@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 import image from '../../assets/wimmelbild.jpg';
 import Popupmenu from '../Popupmenu/Popupmenu';
 
-function GameImage({ setRelativeCoordinates, checkTarget, targets }) {
+function GameImage({ setRelativeCoordinates, checkTarget, targets, showPopup, togglePopup }) {
   const [clickCoordinates, setClickCoordinates] = useState({ x: 0, y: 0 });
-  const [showPopup, setShowPopup] = useState(false);
+  /* const [showPopup, setShowPopup] = useState(false); */
 
   const getClickCoordinates = (e) => {
     setClickCoordinates({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY });
@@ -18,17 +18,13 @@ function GameImage({ setRelativeCoordinates, checkTarget, targets }) {
     });
   };
 
-  const handleClick = () => {
-    setShowPopup(!showPopup);
-  };
-
   return (
     <div className="game">
       <div
         className="image-container"
         onClick={(e) => {
           getClickCoordinates(e);
-          handleClick();
+          togglePopup();
         }}
         role="grid"
         tabIndex={0}>
@@ -52,5 +48,7 @@ GameImage.propTypes = {
   checkTarget: PropTypes.func.isRequired,
   targets: PropTypes.arrayOf(
     PropTypes.shape(PropTypes.string.isRequired, PropTypes.bool.isRequired)
-  ).isRequired
+  ).isRequired,
+  showPopup: PropTypes.bool.isRequired,
+  togglePopup: PropTypes.func.isRequired
 };

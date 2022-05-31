@@ -14,6 +14,7 @@ function App() {
   const [user, setUser] = useState({});
   const [gameOver, setGameOver] = useState(false);
   const [isGameActive, setIsGameActive] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const [relativeCoordinates, setRelativeCoordinates] = useState({ x: 0, y: 0 });
   const [targets, setTargets] = useState([
     {
@@ -29,6 +30,10 @@ function App() {
       found: false
     }
   ]);
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
 
   const markFound = (target) => {
     setTargets(
@@ -77,6 +82,7 @@ function App() {
     } else {
       console.log('false');
     }
+    togglePopup();
   };
 
   const initializeGame = () => {
@@ -114,6 +120,8 @@ function App() {
                 targets={targets}
                 setRelativeCoordinates={setRelativeCoordinates}
                 checkTarget={checkTarget}
+                showPopup={showPopup}
+                togglePopup={togglePopup}
               />
             )
           }
