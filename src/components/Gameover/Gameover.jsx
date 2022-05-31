@@ -10,7 +10,10 @@ function Gameover({ user }) {
   const updateUser = (e) => {
     e.preventDefault();
     if (formValue !== '') {
-      setUserGameover({});
+      setUserGameover((prevState) => ({
+        ...prevState,
+        name: formValue
+      }));
     }
   };
 
