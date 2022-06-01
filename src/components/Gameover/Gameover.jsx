@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { intervalToDuration } from 'date-fns';
 import { Link } from 'react-router-dom';
-import { query, collection, getDocs, orderBy, limit } from 'firebase/firestore';
+import { query, collection, getDocs, orderBy, limit, setDoc, doc } from 'firebase/firestore';
 import Highscores from '../Highscores/Highscores';
 import database from '../Firebase/Firebase';
 
@@ -11,17 +11,22 @@ function Gameover({ user, resetGame }) {
   const [formValue, setFormValue] = useState('');
   const [userGameover, setUserGameover] = useState(user);
   const [isHighscore, setIsHighscore] = useState(false);
+  const [isNameEntered, setIsNameEntered] = useState(false);
 
-  const updateUser = (e) => {
+  // update user object when name is submitted
+  const handleSubmit = (e) => {
     e.preventDefault();
+
     if (formValue !== '') {
       setUserGameover((prevState) => ({
         ...prevState,
         name: formValue
       }));
+      setIsNameEntered(true);
     }
   };
 
+  // add user finish time and convert to readable time
   const updateUserObject = () => {
     const unixTimeEnd = Date.now();
     // returns date-fns Duration-object: https://date-fns.org/v2.28.0/docs/Duration
@@ -33,6 +38,7 @@ function Gameover({ user, resetGame }) {
     }));
   };
 
+  // check if any score in the database is slower than the user score
   const isUserscoreHighscore = async () => {
     const checkHighscores = (userScoreObject, onlineScoresArray) => {
       const slower = (onlineScoreObject) =>
@@ -46,12 +52,22 @@ function Gameover({ user, resetGame }) {
       const highscoresRef = collection(database, 'highscores');
       const q = query(highscoresRef, orderBy('time'), limit(10));
       const querySnapshot = await getDocs(q);
-      return querySnapshot.docs.map((doc) => doc.data());
+      return querySnapshot.docs.map((document) => document.data());
     };
-
+    // grab highscores from database
     const checked = await getHighscores();
 
     return checkHighscores(userGameover, checked);
+  };
+
+  const uploadHighscore = async (usr) => {
+    await setDoc(doc(database, 'highscores', usr.id), {
+      id: usr.id,
+      name: usr.name,
+      gameStart: usr.gameStart,
+      gameFinish: usr.gameFinish,
+      time: usr.time
+    });
   };
 
   useEffect(() => {
@@ -63,6 +79,14 @@ function Gameover({ user, resetGame }) {
       isUserscoreHighscore();
     }
   }, [userGameover.gameFinish]);
+
+  useEffect(() => {
+    if (isNameEntered) {
+      uploadHighscore(userGameover);
+      setIsHighscore(false);
+      /* console.log(userGameover); */
+    }
+  }, [isNameEntered]);
 
   const formattedMinutes = userGameover.time.minutes.toLocaleString('en-US', {
     minimumIntegerDigits: 2,
@@ -95,7 +119,7 @@ function Gameover({ user, resetGame }) {
               <form
                 action="input"
                 onSubmit={(e) => {
-                  updateUser(e);
+                  handleSubmit(e);
                 }}>
                 <input
                   type="text"
@@ -111,8 +135,18 @@ function Gameover({ user, resetGame }) {
             </div>
           </>
         )}
-        {isHighscore === false && <h3>Sorry, no highscore!</h3>}
-        <Highscores />
+        {isHighscore === false && isNameEntered === false && (
+          <div className="no-highscore-container">
+            <h3>Sorry, no highscore!</h3>
+            <Highscores />
+          </div>
+        )}
+        {isHighscore === false && isNameEntered === true && (
+          <div className="no-highscore-container">
+            <h3>Nice!</h3>
+            <Highscores />
+          </div>
+        )}
       </div>
     </div>
   );
