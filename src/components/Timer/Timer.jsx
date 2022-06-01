@@ -2,7 +2,7 @@ import './Timer.css';
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function Timer({ isGameActive, mustResetTimer }) {
+function Timer({ isGameActive, toggleResetTimer }) {
   const [time, setTime] = useState(0);
   const [running, setRunning] = useState(false);
 
@@ -32,7 +32,7 @@ function Timer({ isGameActive, mustResetTimer }) {
 
   useEffect(() => {
     setTime(0);
-  }, [mustResetTimer]);
+  }, [toggleResetTimer]);
 
   return (
     <div className="timer">
@@ -48,5 +48,5 @@ export default Timer;
 
 Timer.propTypes = {
   isGameActive: PropTypes.bool.isRequired,
-  mustResetTimer: PropTypes.bool.isRequired
+  toggleResetTimer: PropTypes.bool.isRequired
 };

@@ -14,7 +14,7 @@ function App() {
   const [user, setUser] = useState({});
   const [gameOver, setGameOver] = useState(false);
   const [isGameActive, setIsGameActive] = useState(false);
-  const [mustResetTimer, setMustResetTimer] = useState(false);
+  const [toggleResetTimer, setToggleResetTimer] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [relativeCoordinates, setRelativeCoordinates] = useState({ x: 0, y: 0 });
   const [targets, setTargets] = useState([
@@ -115,7 +115,7 @@ function App() {
     ]);
     setGameOver(false);
     setIsGameActive(false);
-    setMustResetTimer(true);
+    setToggleResetTimer(!toggleResetTimer);
   };
 
   useEffect(() => {
@@ -128,7 +128,7 @@ function App() {
 
   return (
     <div className="App">
-      <Nav targets={targets} isGameActive={isGameActive} mustResetTimer={mustResetTimer} />
+      <Nav targets={targets} isGameActive={isGameActive} toggleResetTimer={toggleResetTimer} />
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/startgame" element={<StartScreen initializeGame={initializeGame} />} />
