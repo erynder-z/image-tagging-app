@@ -17,7 +17,15 @@ function Highscores() {
             <div key={highscore.id.toString()} className="highscore-item">
               <div className="highscore-item-name">{highscore.name}</div>
               <div className="highscore-item-time">
-                {highscore.time.minutes}:{highscore.time.seconds}
+                {highscore.time.minutes.toLocaleString('en-US', {
+                  minimumIntegerDigits: 2,
+                  useGrouping: false
+                })}
+                :
+                {highscore.time.seconds.toLocaleString('en-US', {
+                  minimumIntegerDigits: 2,
+                  useGrouping: false
+                })}
               </div>
             </div>
           ))}
