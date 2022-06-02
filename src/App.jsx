@@ -16,6 +16,8 @@ function App() {
   const [isGameActive, setIsGameActive] = useState(false);
   const [toggleResetTimer, setToggleResetTimer] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [foundEffect, setFoundEffect] = useState(false);
+  const [mistakeEffect, setMistakeEffect] = useState(false);
   const [relativeCoordinates, setRelativeCoordinates] = useState({ x: 0, y: 0 });
   const [targets, setTargets] = useState([
     {
@@ -34,6 +36,20 @@ function App() {
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
+  };
+
+  const toggleFoundEffect = () => {
+    setFoundEffect(true);
+    setTimeout(() => {
+      setFoundEffect(false);
+    }, 500);
+  };
+
+  const toggleMistakeEffect = () => {
+    setMistakeEffect(true);
+    setTimeout(() => {
+      setMistakeEffect(false);
+    }, 500);
   };
 
   const markFound = (target) => {
@@ -79,9 +95,11 @@ function App() {
       relativeCoordinates.y <= targetY2
     ) {
       console.log(`found ${target.name}`);
+      toggleFoundEffect();
       markFound(target);
     } else {
       console.log('false');
+      toggleMistakeEffect();
     }
     togglePopup();
   };
@@ -128,7 +146,14 @@ function App() {
 
   return (
     <div className="App">
-      <Nav targets={targets} isGameActive={isGameActive} toggleResetTimer={toggleResetTimer} />
+      <Nav
+        targets={targets}
+        isGameActive={isGameActive}
+        toggleResetTimer={toggleResetTimer}
+        foundEffect={foundEffect}
+        mistakeEffect={mistakeEffect}
+        resetGame={resetGame}
+      />
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/startgame" element={<StartScreen initializeGame={initializeGame} />} />
