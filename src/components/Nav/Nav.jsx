@@ -7,9 +7,12 @@ import image2 from '../../assets/target2.png';
 import image3 from '../../assets/target3.png';
 import Timer from '../Timer/Timer';
 
-function Nav({ targets, isGameActive, toggleResetTimer }) {
+function Nav({ targets, isGameActive, toggleResetTimer, foundEffect, mistakeEffect, resetGame }) {
   return (
-    <nav className="nav">
+    <nav
+      className={`nav ${foundEffect ? 'foundEffect' : null} ${
+        mistakeEffect ? 'mistakeEffect' : null
+      }`}>
       <div className="target-overview">
         <img src={image1} alt="target1" className={` ${targets[0].found ? 'found' : null}`} />
         <img src={image2} alt="target2" className={` ${targets[1].found ? 'found' : null}`} />
@@ -17,8 +20,20 @@ function Nav({ targets, isGameActive, toggleResetTimer }) {
       </div>
       <Timer isGameActive={isGameActive} toggleResetTimer={toggleResetTimer} />
       <ul className="nav-links">
-        <Link to="/">Home</Link>
-        <Link to="/startgame">Play</Link>
+        <Link
+          to="/"
+          onClick={() => {
+            resetGame();
+          }}>
+          Home
+        </Link>
+        <Link
+          to="/startgame"
+          onClick={() => {
+            resetGame();
+          }}>
+          Play
+        </Link>
       </ul>
     </nav>
   );
@@ -31,5 +46,8 @@ Nav.propTypes = {
     PropTypes.shape(PropTypes.string.isRequired, PropTypes.bool.isRequired)
   ).isRequired,
   isGameActive: PropTypes.bool.isRequired,
-  toggleResetTimer: PropTypes.bool.isRequired
+  toggleResetTimer: PropTypes.bool.isRequired,
+  foundEffect: PropTypes.bool.isRequired,
+  mistakeEffect: PropTypes.bool.isRequired,
+  resetGame: PropTypes.func.isRequired
 };
