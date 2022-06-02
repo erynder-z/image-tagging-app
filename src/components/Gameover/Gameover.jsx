@@ -17,7 +17,7 @@ function Gameover({ user, resetGame }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (formValue !== '') {
+    if (formValue !== '' && formValue.length <= 20) {
       setUserGameover((prevState) => ({
         ...prevState,
         name: formValue
@@ -101,20 +101,12 @@ function Gameover({ user, resetGame }) {
   return (
     <div className="gameover-overlay">
       <div className="gameover-body">
-        <h3>Something</h3>
-        <Link
-          to="/"
-          onClick={() => {
-            resetGame();
-          }}>
-          Return to Main
-        </Link>
         <h3>
-          your time: {formattedMinutes}:{formattedSeconds}
+          You finished in {formattedMinutes}:{formattedSeconds}!
         </h3>
         {isHighscore === true && (
           <>
-            <h3>Congratulations! You got a highscore!</h3>
+            <h4>Congratulations! You made it in the Top 10!</h4>
             <div className="highscore-input-container">
               <form
                 action="input"
@@ -123,7 +115,7 @@ function Gameover({ user, resetGame }) {
                 }}>
                 <input
                   type="text"
-                  placeholder="enter your name"
+                  placeholder="enter your name (max. 20 characters)"
                   value={formValue}
                   onChange={(e) => {
                     setFormValue(e.target.value);
@@ -146,7 +138,19 @@ function Gameover({ user, resetGame }) {
             <h3>Nice!</h3>
             <Highscores />
           </div>
-        )}
+        )}{' '}
+        <div
+          className="returnBtn"
+          onClick={() => {
+            resetGame();
+          }}
+          onKeyDown={() => {
+            resetGame();
+          }}
+          role="button"
+          tabIndex={0}>
+          <Link to="/">Return to welcome screen</Link>
+        </div>
       </div>
     </div>
   );

@@ -13,12 +13,17 @@ function Nav({ targets, isGameActive, toggleResetTimer, foundEffect, mistakeEffe
       className={`nav ${foundEffect ? 'foundEffect' : null} ${
         mistakeEffect ? 'mistakeEffect' : null
       }`}>
-      <div className="target-overview">
-        <img src={image1} alt="target1" className={` ${targets[0].found ? 'found' : null}`} />
-        <img src={image2} alt="target2" className={` ${targets[1].found ? 'found' : null}`} />
-        <img src={image3} alt="target3" className={` ${targets[2].found ? 'found' : null}`} />
-      </div>
-      <Timer isGameActive={isGameActive} toggleResetTimer={toggleResetTimer} />
+      {isGameActive && (
+        <>
+          <div className="target-overview">
+            <img src={image1} alt="target1" className={` ${targets[0].found ? 'found' : null}`} />
+            <img src={image2} alt="target2" className={` ${targets[1].found ? 'found' : null}`} />
+            <img src={image3} alt="target3" className={` ${targets[2].found ? 'found' : null}`} />
+          </div>
+          <Timer isGameActive={isGameActive} toggleResetTimer={toggleResetTimer} />
+        </>
+      )}
+      {!isGameActive && <div className="logo">SOMETHING</div>}
       <ul className="nav-links">
         <Link
           to="/"
@@ -28,11 +33,18 @@ function Nav({ targets, isGameActive, toggleResetTimer, foundEffect, mistakeEffe
           Home
         </Link>
         <Link
-          to="/startgame"
+          to="/scoreboard"
           onClick={() => {
             resetGame();
           }}>
-          Play
+          Scoreboard
+        </Link>
+        <Link
+          to="/about"
+          onClick={() => {
+            resetGame();
+          }}>
+          About
         </Link>
       </ul>
     </nav>

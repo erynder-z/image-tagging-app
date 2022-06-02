@@ -1,0 +1,12 @@
+.about-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 90vh;
+  background-color: var(--background);
+}
+
+.about-body {
+  padding: 5rem;
+}

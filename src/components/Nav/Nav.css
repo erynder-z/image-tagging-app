@@ -3,11 +3,16 @@ nav {
   justify-content: space-around;
   align-items: center;
   height: 10vh;
-  /*   width: 100vw; */
-  background-color: #961111;
-  color: whitesmoke;
+  background-color: var(--primary);
   position: sticky;
   top: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.logo {
+  color: var(--background);
+  font-size: 1.5rem;
+  font-weight: 900;
 }
 
 .nav-links {
@@ -20,7 +25,7 @@ nav {
 }
 
 .nav-links > a {
-  color: whitesmoke;
+  color: var(--background);
   text-decoration: none;
   transition: all 0.5s;
 }
@@ -30,5 +35,59 @@ nav {
   transition: all 0.5s;
 }
 
+.target-overview {
+  display: flex;
+  height: 75%;
+}
+
+.target-overview img {
+  padding: 0.5rem;
+}
+
+.found {
+  opacity: 0.5;
+}
+
+.foundEffect {
+  background-color: green;
+  transition: all 0.25s ease-in-out;
+}
+
+.mistakeEffect {
+  background-color: crimson;
+  transition: all 0.25s ease-in-out;
+}
+
+.hide {
+  opacity: 0;
+}
+
+.show {
+  opacity: 1;
+}
+
 @media only screen and (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    justify-content: space-around;
+    height: 20vh;
+  }
+
+  .nav-links {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .target-overview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+  }
+
+  .target-overview > img {
+    height: 75%;
+  }
 }

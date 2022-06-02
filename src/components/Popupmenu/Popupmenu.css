@@ -1,0 +1,45 @@
+.popup-menu {
+  display: none;
+  position: absolute;
+  padding: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background);
+  cursor: pointer;
+  outline: solid 2px black;
+}
+
+.popup-menu li,
+.popup-menu ul {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  list-style: none;
+  transition: all 0.1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+li:hover {
+  background-color: var(--primary);
+  transition: all 0.1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+li img {
+  height: 50px;
+  width: auto;
+  padding: 0.5rem;
+}
+
+.highlighter {
+  border: 5px solid var(--background);
+  background-color: rgba(245, 245, 245, 0.201);
+  box-shadow: 1px 1px black;
+  position: absolute;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+
+.popup-found {
+  opacity: 0.5;
+}
