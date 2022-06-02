@@ -9,6 +9,8 @@ import Welcome from './components/Welcome/Welcome';
 import GameImage from './components/GameImage/GameImage';
 import database from './components/Firebase/Firebase';
 import Gameover from './components/Gameover/Gameover';
+import About from './components/About/About';
+import Scoreboard from './components/Scoreboard/Scoreboard';
 
 function App() {
   const [user, setUser] = useState({});
@@ -155,7 +157,7 @@ function App() {
         resetGame={resetGame}
       />
       <Routes>
-        <Route path="/" element={<Welcome />} />
+        <Route path="/" element={<Welcome resetGame={resetGame} />} />
         <Route path="/startgame" element={<StartScreen initializeGame={initializeGame} />} />
         <Route
           path="/gameimage"
@@ -174,7 +176,8 @@ function App() {
           }
         />
 
-        {/*   <Route path="/something" element={<Something />} /> */}
+        <Route path="/about" element={<About />} />
+        <Route path="/scoreboard" element={<Scoreboard />} />
       </Routes>
       {gameOver && <Gameover user={user} resetGame={resetGame} />}
     </div>
