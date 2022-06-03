@@ -27,11 +27,12 @@ li:hover {
 li img {
   height: 50px;
   width: auto;
-  padding: 0.5rem;
+  padding: 0.2rem;
 }
 
 .highlighter {
-  border: 5px solid var(--background);
+  outline: solid 2px black;
+  border: solid 2px var(--background);
   background-color: rgba(245, 245, 245, 0.201);
   box-shadow: 1px 1px black;
   position: absolute;
@@ -42,4 +43,10 @@ li img {
 
 .popup-found {
   opacity: 0.5;
+}
+
+@media only screen and (max-width: 768px) {
+  .popup-menu {
+    max-height: 25vh;
+  }
 }

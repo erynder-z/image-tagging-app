@@ -3,6 +3,7 @@
 import './GameImage.css';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { FiExternalLink } from 'react-icons/fi';
 import image from '../../assets/wimmelbild.jpg';
 import Popupmenu from '../Popupmenu/Popupmenu';
 
@@ -29,6 +30,31 @@ function GameImage({ setRelativeCoordinates, checkTarget, targets, showPopup, to
         role="grid"
         tabIndex={0}>
         <img src={image} alt="a wimmelbild" />
+      </div>
+      <div className="artist-credits">
+        <p>Image created by:</p>
+
+        <a href="https://www.reddit.com/user/IdleMind81/" target="_blank" rel="noopener noreferrer">
+          <h2>
+            IdleMind81 <FiExternalLink />
+          </h2>
+        </a>
+        <p>and</p>
+
+        <a href="https://www.reddit.com/user/gus_morais" target="_blank" rel="noopener noreferrer">
+          <h2>
+            Gus Morais <FiExternalLink />
+          </h2>
+        </a>
+        <p>Original Image:</p>
+        <a
+          href="https://www.reddit.com/r/wimmelbilder/comments/oiabtq/a_scene_from_a_phish_concert/"
+          target="_blank"
+          rel="noopener noreferrer">
+          <h2>
+            &quot;A scene from a Phish concert&quot; <FiExternalLink />
+          </h2>
+        </a>
       </div>
       {showPopup && (
         <Popupmenu

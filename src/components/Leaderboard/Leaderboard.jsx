@@ -1,12 +1,12 @@
 import './Leaderboard.css';
 import React from 'react';
-import { query, collection, orderBy } from 'firebase/firestore';
+import { query, collection, orderBy, limit } from 'firebase/firestore';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import database from '../Firebase/Firebase';
 
 function Leaderboard() {
   const highscoresRef = collection(database, 'highscores');
-  const q = query(highscoresRef, orderBy('time'));
+  const q = query(highscoresRef, orderBy('time'), limit(10));
   const [highscores] = useCollectionData(q, { idField: 'id' });
 
   return (

@@ -14,7 +14,7 @@
 
 .gameover-body {
   min-height: 50vh;
-  width: 66vh;
+  width: 50vh;
   background-color: var(--background);
   display: flex;
   flex-direction: column;
@@ -52,7 +52,7 @@
 
 .highscore-input-container > form > input:focus {
   outline: none;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
 }
 
 .highscore-input-container > form > button {
@@ -66,14 +66,25 @@
   background-color: var(--secondary);
 }
 
+.highscore-input-container > form > button:hover {
+  background-color: var(--secondary-hover);
+  transition: all 0.5s ease;
+}
+
 .returnBtn {
   margin-top: auto;
   font-size: 1rem;
   padding: 1rem;
   background-color: var(--secondary);
   cursor: pointer;
+  transition: all 0.5s ease;
 }
 
 .returnBtn a {
   text-decoration: none;
+}
+
+.returnBtn:hover {
+  background-color: var(--secondary-hover);
+  transition: all 0.5s ease;
 }

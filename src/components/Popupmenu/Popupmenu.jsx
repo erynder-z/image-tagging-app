@@ -18,16 +18,16 @@ function Popupmenu({ position, checkTarget, targets }) {
         className="highlighter"
         ref={highlighter}
         style={{
-          top: `calc(${posY}px + 10vh - 25px)`,
-          left: `${posX - 25}px`
+          top: `calc(${posY - 25}px + 10vh)`,
+          left: `${posX - 24}px`
         }}
       />
       <div
         className="popup-menu"
         style={{
           display: 'flex',
-          top: `${posY + 65}px`,
-          left: `${posX + 50}px `
+          top: `${posY + 140}px`,
+          left: `${posX - 28.5}px `
         }}>
         <ul>
           <li className={`${targets[0].found ? 'popup-found' : null}`}>

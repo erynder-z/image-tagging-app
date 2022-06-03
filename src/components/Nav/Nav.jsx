@@ -2,6 +2,7 @@ import './Nav.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { BiSearchAlt } from 'react-icons/bi';
 import image1 from '../../assets/target1.png';
 import image2 from '../../assets/target2.png';
 import image3 from '../../assets/target3.png';
@@ -23,21 +24,26 @@ function Nav({ targets, isGameActive, toggleResetTimer, foundEffect, mistakeEffe
           <Timer isGameActive={isGameActive} toggleResetTimer={toggleResetTimer} />
         </>
       )}
-      {!isGameActive && <div className="logo">SOMETHING</div>}
+      {!isGameActive && (
+        <div className="logo">
+          .find(
+          <BiSearchAlt />)
+        </div>
+      )}
       <ul className="nav-links">
         <Link
-          to="/"
+          to="/startgame"
           onClick={() => {
             resetGame();
           }}>
-          Home
+          Play
         </Link>
         <Link
-          to="/scoreboard"
+          to="/leaderboard"
           onClick={() => {
             resetGame();
           }}>
-          Scoreboard
+          Leaderboard
         </Link>
         <Link
           to="/about"
