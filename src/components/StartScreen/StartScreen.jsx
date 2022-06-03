@@ -17,23 +17,24 @@ function StartScreen({ initializeGame }) {
 
   return (
     <div className="startscreen-container">
-      <h3>Something</h3>
-      <div className="startscreen-body">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, repudiandae ipsam sunt
-        excepturi praesentium autem veritatis natus, minima totam minus odio quas. Vitae, iusto
-        explicabo.
+      <div className="bg-image" />
+      <div className="startscreen-content-container">
+        <div className="startscreen-content">
+          <h1>How to play</h1>
+          <h3>Find these three guys:</h3>
+          <div className="startscreen-target-overview">
+            <img src={image1} alt="target1" className="target-image" />
+            <img src={image2} alt="target2" className="target-image" />
+            <img src={image3} alt="target3" className="target-image" />
+          </div>
+          <h3>Are you quick enough to make it into the top 10??? </h3>
+          <form action="input" onSubmit={toggleGameStart}>
+            <button className="startBtn" type="submit">
+              Start
+            </button>
+          </form>
+        </div>
       </div>
-      <h4>Find these three guys:</h4>
-      <div className="startscreen-target-overview">
-        <img src={image1} alt="target1" className="target-image" />
-        <img src={image2} alt="target2" className="target-image" />
-        <img src={image3} alt="target3" className="target-image" />
-      </div>
-      <form action="input" onSubmit={toggleGameStart}>
-        <button className="startBtn" type="submit">
-          Start
-        </button>
-      </form>
     </div>
   );
 }
