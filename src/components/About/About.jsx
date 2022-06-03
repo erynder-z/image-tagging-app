@@ -1,16 +1,62 @@
 import './About.css';
 import React from 'react';
+import { FaGithub } from 'react-icons/fa';
+import { FiExternalLink } from 'react-icons/fi';
 
 function About() {
   return (
     <div className="about-container">
-      <h1>About</h1>
-      <div className="about-body">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi officia culpa, facere id
-        recusandae consectetur consequuntur inventore similique ratione explicabo velit unde itaque
-        nostrum rerum obcaecati? Consequatur repellat quam assumenda a fugiat! Deleniti optio, ex
-        voluptates, sit ab inventore eum numquam iure, voluptate laboriosam error ipsa maxime illo
-        labore? Beatae!
+      <div className="bg-image" />
+      <div className="about-content-container">
+        <div className="about-content">
+          <div className="about-body">
+            <h1>About</h1>
+            <h3>This app uses the following:</h3>
+
+            <li>React</li>
+            <li>Google Firebase</li>
+            <li>React Icons</li>
+            <li>Uniqid-library</li>
+            <li>Proptypes library</li>
+            <li>Date-fns library</li>
+
+            <h3>App by:</h3>
+            <h2>
+              <a href="https://github.com/erynder-z">
+                Erynder-Z <FaGithub size="1em" />
+              </a>
+            </h2>
+            <h3>Image created by:</h3>
+
+            <a
+              href="https://www.reddit.com/user/IdleMind81/"
+              target="_blank"
+              rel="noopener noreferrer">
+              <h2>
+                IdleMind81 <FiExternalLink />
+              </h2>
+            </a>
+            <p>and</p>
+
+            <a
+              href="https://www.reddit.com/user/gus_morais"
+              target="_blank"
+              rel="noopener noreferrer">
+              <h2>
+                Gus Morais <FiExternalLink />
+              </h2>
+            </a>
+            <p>Original Image:</p>
+            <a
+              href="https://www.reddit.com/r/wimmelbilder/comments/oiabtq/a_scene_from_a_phish_concert/"
+              target="_blank"
+              rel="noopener noreferrer">
+              <h2>
+                &quot;A scene from a Phish concert&quot; <FiExternalLink />
+              </h2>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
