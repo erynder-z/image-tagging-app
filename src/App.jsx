@@ -10,7 +10,7 @@ import GameImage from './components/GameImage/GameImage';
 import database from './components/Firebase/Firebase';
 import Gameover from './components/Gameover/Gameover';
 import About from './components/About/About';
-import Scoreboard from './components/Scoreboard/Scoreboard';
+import Leaderboard from './components/Leaderboard/Leaderboard';
 
 function App() {
   const [user, setUser] = useState({});
@@ -44,14 +44,14 @@ function App() {
     setFoundEffect(true);
     setTimeout(() => {
       setFoundEffect(false);
-    }, 500);
+    }, 250);
   };
 
   const toggleMistakeEffect = () => {
     setMistakeEffect(true);
     setTimeout(() => {
       setMistakeEffect(false);
-    }, 500);
+    }, 250);
   };
 
   const markFound = (target) => {
@@ -177,7 +177,7 @@ function App() {
         />
 
         <Route path="/about" element={<About />} />
-        <Route path="/scoreboard" element={<Scoreboard />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
       {gameOver && <Gameover user={user} resetGame={resetGame} />}
     </div>
