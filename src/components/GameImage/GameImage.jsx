@@ -36,14 +36,14 @@ function GameImage({ setRelativeCoordinates, checkTarget, targets, showPopup, to
 
         <a href="https://www.reddit.com/user/IdleMind81/" target="_blank" rel="noopener noreferrer">
           <h2>
-            IdleMind81 <FiExternalLink />
+            IdleMind81 <FiExternalLink size="1rem" />
           </h2>
         </a>
         <p>and</p>
 
         <a href="https://www.reddit.com/user/gus_morais" target="_blank" rel="noopener noreferrer">
           <h2>
-            Gus Morais <FiExternalLink />
+            Gus Morais <FiExternalLink size="1rem" />
           </h2>
         </a>
         <p>Original Image:</p>
@@ -52,7 +52,7 @@ function GameImage({ setRelativeCoordinates, checkTarget, targets, showPopup, to
           target="_blank"
           rel="noopener noreferrer">
           <h2>
-            &quot;A scene from a Phish concert&quot; <FiExternalLink />
+            &quot;A scene from a Phish concert&quot; <FiExternalLink size="1rem" />
           </h2>
         </a>
       </div>

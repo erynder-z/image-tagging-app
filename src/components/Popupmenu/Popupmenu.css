@@ -8,6 +8,7 @@
   background-color: var(--background);
   cursor: pointer;
   outline: solid 2px black;
+  z-index: 100;
 }
 
 .popup-menu li,

@@ -2,6 +2,7 @@ import './Welcome.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { BiSearchAlt } from 'react-icons/bi';
 
 function Welcome({ resetGame }) {
   return (
@@ -10,7 +11,10 @@ function Welcome({ resetGame }) {
       <div className="welcome-content-container">
         <div className="welcome-content">
           <div className="welcome-body">
-            <h1> Welcome to .find()</h1>
+            <h1>
+              {' '}
+              Welcome to .find( <BiSearchAlt />)
+            </h1>
             <h3>
               A small hidden object game written in JavaScript featuring backend validation and
               online highscores!

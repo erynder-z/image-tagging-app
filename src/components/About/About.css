@@ -33,13 +33,34 @@
 }
 
 .about-body {
-  padding: 0 5rem;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .about-container li {
   list-style: none;
 }
 
+.about-container li:hover {
+  background-color: unset;
+}
+
 .about-container a {
   text-decoration: none;
+}
+
+.about-container a:visited {
+  color: black;
+}
+
+.about-body p {
+  margin: 0;
+}
+
+.about-list,
+.about-app,
+.about-image {
+  width: 100%;
+  text-decoration: underline;
 }

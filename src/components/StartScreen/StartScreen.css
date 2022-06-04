@@ -63,6 +63,11 @@
   .startscreen-target-overview {
     display: flex;
     flex-direction: column;
+    padding: 0.5rem;
+  }
+
+  .startscreen-target-overview img {
+    margin: 0.5rem;
   }
 
   .startBtn {
