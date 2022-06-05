@@ -36,6 +36,38 @@ function App() {
     }
   ]);
 
+  const initializeGame = () => {
+    setUser({
+      name: '',
+      gameStart: Date.now(),
+      gameFinish: '',
+      time: { minutes: '', seconds: '' },
+      id: uniqid()
+    });
+    setIsGameActive(true);
+  };
+
+  const resetGame = () => {
+    setUser({});
+    setTargets([
+      {
+        name: 'target1',
+        found: false
+      },
+      {
+        name: 'target2',
+        found: false
+      },
+      {
+        name: 'target3',
+        found: false
+      }
+    ]);
+    setGameOver(false);
+    setIsGameActive(false);
+    setToggleResetTimer(!toggleResetTimer);
+  };
+
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
@@ -70,7 +102,9 @@ function App() {
 
   const gameOverCheck = () => targets.every((object) => object.found === true);
 
+  // check if user clicked on a target
   const checkTarget = async (proposedTarget) => {
+    // grab data from database
     const getData = async () => {
       const docRef = doc(database, 'targets', proposedTarget);
       const docSnap = await getDoc(docRef);
@@ -82,67 +116,38 @@ function App() {
       return null;
     };
 
+    // get the target, the user chose from the popup menu
     const target = targets.find((item) => item.name === proposedTarget);
     const targetCoords = await getData();
 
+    // define coordinates of an imaginary rectangle around the target
     const targetX1 = targetCoords[0];
     const targetY1 = targetCoords[1];
     const targetX2 = targetCoords[2];
     const targetY2 = targetCoords[3];
 
+    // check if user click coordinates are inside the imaginary rectangle
     if (
       relativeCoordinates.x >= targetX1 &&
       relativeCoordinates.x <= targetX2 &&
       relativeCoordinates.y >= targetY1 &&
       relativeCoordinates.y <= targetY2
     ) {
-      console.log(`found ${target.name}`);
       toggleFoundEffect();
       markFound(target);
     } else {
-      console.log('false');
       toggleMistakeEffect();
     }
     togglePopup();
   };
 
-  const initializeGame = () => {
-    setUser({
-      name: '',
-      gameStart: Date.now(),
-      gameFinish: '',
-      time: { minutes: '', seconds: '' },
-      id: uniqid()
-    });
-    setIsGameActive(true);
-  };
-
-  const resetGame = () => {
-    setUser({});
-    setTargets([
-      {
-        name: 'target1',
-        found: false
-      },
-      {
-        name: 'target2',
-        found: false
-      },
-      {
-        name: 'target3',
-        found: false
-      }
-    ]);
-    setGameOver(false);
-    setIsGameActive(false);
-    setToggleResetTimer(!toggleResetTimer);
-  };
-
   useEffect(() => {
+    // check for gameover whenever the user found a target
     setGameOver(gameOverCheck());
   }, [targets]);
 
   useEffect(() => {
+    // stop timer when gameOver is toggled
     setIsGameActive(false);
   }, [gameOver]);
 
