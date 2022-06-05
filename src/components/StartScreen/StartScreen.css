@@ -72,6 +72,8 @@
 
   .startscreen-target-overview img {
     margin: 0.5rem;
+    height: 10vh;
+    width: auto;
   }
 
   .startBtn {
