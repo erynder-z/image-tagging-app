@@ -49,18 +49,19 @@ function Gameover({ user, resetGame }) {
         setIsHighscore(true);
       }
     };
+    // grab highscores from database
     const getHighscores = async () => {
       const highscoresRef = collection(database, 'highscores');
       const q = query(highscoresRef, orderBy('time'), limit(10));
       const querySnapshot = await getDocs(q);
       return querySnapshot.docs.map((document) => document.data());
     };
-    // grab highscores from database
-    const checked = await getHighscores();
 
-    return checkHighscores(userGameover, checked);
+    const fetchedHighscores = await getHighscores();
+
+    return checkHighscores(userGameover, fetchedHighscores);
   };
-
+  // upload highscore to database
   const uploadHighscore = async (usr) => {
     await setDoc(doc(database, 'highscores', usr.id), {
       id: usr.id,
@@ -71,21 +72,23 @@ function Gameover({ user, resetGame }) {
     });
   };
 
+  // update user object on component mount
   useEffect(() => {
     updateUserObject();
   }, []);
 
+  // run check for user highscore gamefinish time has been updated
   useEffect(() => {
     if (userGameover.gameFinish !== '') {
       isUserscoreHighscore();
     }
   }, [userGameover.gameFinish]);
 
+  // run upload highscore function when user object has been updated with submitted user name
   useEffect(() => {
     if (isNameEntered) {
       uploadHighscore(userGameover);
       setIsHighscore(false);
-      /* console.log(userGameover); */
     }
   }, [isNameEntered]);
 
