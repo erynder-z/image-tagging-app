@@ -2,7 +2,7 @@
 
 #### [LIVE]: https://erynder-z.github.io/image-tagging-app/
 
-A simple hidden object game build with react and google firebase backend.
+A small hidden object game build with react and google firebase backend.
 
 # Features
 
