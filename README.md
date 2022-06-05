@@ -1,4 +1,4 @@
-# .find() - A hidden objet game
+# .find() - A hidden object game
 
 #### [LIVE]: https://erynder-z.github.io/image-tagging-app/
 
