@@ -36,6 +36,7 @@
   height: 90vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .about-container li {
@@ -56,6 +57,11 @@
 
 .about-body p {
   margin: 0;
+}
+
+.about-body h3 {
+  margin-bottom: 0.5rem;
+  text-decoration: underline;
 }
 
 .about-list,

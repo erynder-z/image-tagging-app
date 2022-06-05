@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { intervalToDuration } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { query, collection, getDocs, orderBy, limit, setDoc, doc } from 'firebase/firestore';
+import { FiUploadCloud } from 'react-icons/fi';
 import Highscores from '../Highscores/Highscores';
 import database from '../Firebase/Firebase';
 
@@ -106,7 +107,7 @@ function Gameover({ user, resetGame }) {
         </h3>
         {isHighscore === true && (
           <>
-            <h4>Congratulations! You made it in the Top 10!</h4>
+            <h4>Congratulations! You made it into the Top 10!</h4>
             <div className="highscore-input-container">
               <form
                 action="input"
@@ -122,7 +123,9 @@ function Gameover({ user, resetGame }) {
                   }}
                 />
 
-                <button type="submit">Submit</button>
+                <button type="submit">
+                  Submit&nbsp; <FiUploadCloud />
+                </button>
               </form>
             </div>
           </>

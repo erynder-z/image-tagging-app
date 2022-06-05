@@ -27,7 +27,8 @@ function StartScreen({ initializeGame }) {
             <img src={image2} alt="target2" className="target-image" />
             <img src={image3} alt="target3" className="target-image" />
           </div>
-          <h3>Are you quick enough to make it into the top 10??? </h3>
+          <h3>Are you quick enough to make it into the top 10???</h3>{' '}
+          <h5>*Playing on a full sized monitor is recommended</h5>
           <form action="input" onSubmit={toggleGameStart}>
             <button className="startBtn" type="submit">
               Start

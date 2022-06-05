@@ -18,7 +18,11 @@ function Leaderboard() {
           <div className="leaderboard">
             {highscores &&
               highscores.map((highscore) => (
-                <div key={highscore.id.toString()} className="leaderboard-item">
+                <div
+                  key={highscore.id.toString()}
+                  className={`leaderboard-item ${
+                    highscores.indexOf(highscore) === 0 ? 'pulse' : null
+                  }`}>
                   <div className="leaderboard-index">{highscores.indexOf(highscore) + 1}.</div>
 
                   <div className="leaderboard-item-name">{highscore.name}</div>
