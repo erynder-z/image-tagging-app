@@ -9,7 +9,6 @@ import Popupmenu from '../Popupmenu/Popupmenu';
 
 function GameImage({ setRelativeCoordinates, checkTarget, targets, showPopup, togglePopup }) {
   const [clickCoordinates, setClickCoordinates] = useState({ x: 0, y: 0 });
-  /* const [showPopup, setShowPopup] = useState(false); */
 
   const getClickCoordinates = (e) => {
     setClickCoordinates({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY });
