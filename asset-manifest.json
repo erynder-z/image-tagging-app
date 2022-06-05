@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/image-tagging-app/static/css/main.839992f3.css",
-    "main.js": "/image-tagging-app/static/js/main.4a771713.js",
+    "main.css": "/image-tagging-app/static/css/main.75bf39d4.css",
+    "main.js": "/image-tagging-app/static/js/main.bd6ceaa9.js",
     "static/media/wimmelbild.jpg": "/image-tagging-app/static/media/wimmelbild.983f22426b987d902b4c.jpg",
     "static/media/target2.png": "/image-tagging-app/static/media/target2.04f253ef7bcbe9dd843d.png",
     "static/media/target1.png": "/image-tagging-app/static/media/target1.a4f80163bef67f6ef878.png",
     "static/media/target3.png": "/image-tagging-app/static/media/target3.d921b6485fe4c506cf46.png",
     "index.html": "/image-tagging-app/index.html",
-    "main.839992f3.css.map": "/image-tagging-app/static/css/main.839992f3.css.map",
-    "main.4a771713.js.map": "/image-tagging-app/static/js/main.4a771713.js.map"
+    "main.75bf39d4.css.map": "/image-tagging-app/static/css/main.75bf39d4.css.map",
+    "main.bd6ceaa9.js.map": "/image-tagging-app/static/js/main.bd6ceaa9.js.map"
   },
   "entrypoints": [
-    "static/css/main.839992f3.css",
-    "static/js/main.4a771713.js"
+    "static/css/main.75bf39d4.css",
+    "static/js/main.bd6ceaa9.js"
   ]
 }
